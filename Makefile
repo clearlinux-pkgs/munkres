@@ -1,5 +1,5 @@
 PKG_NAME := munkres
-URL = https://files.pythonhosted.org/packages/b1/af/366c2b607b6994aa542a9eefd7d4dc1b0abadba396ed84bbbbc17d8d257e/munkres-1.1.2.tar.gz
+URL = https://files.pythonhosted.org/packages/fd/41/6a3d0ef908f47d07c31e5d1c2504388c27c39b10b8cf610175b5a789a5c1/munkres-1.1.4.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
