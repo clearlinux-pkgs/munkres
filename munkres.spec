@@ -4,12 +4,13 @@
 #
 Name     : munkres
 Version  : 1.1.4
-Release  : 20
+Release  : 21
 URL      : https://files.pythonhosted.org/packages/fd/41/6a3d0ef908f47d07c31e5d1c2504388c27c39b10b8cf610175b5a789a5c1/munkres-1.1.4.tar.gz
 Source0  : https://files.pythonhosted.org/packages/fd/41/6a3d0ef908f47d07c31e5d1c2504388c27c39b10b8cf610175b5a789a5c1/munkres-1.1.4.tar.gz
 Summary  : Munkres (Hungarian) algorithm for the Assignment Problem
 Group    : Development/Tools
 License  : Apache-2.0
+Requires: munkres-license = %{version}-%{release}
 Requires: munkres-python = %{version}-%{release}
 Requires: munkres-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
@@ -21,6 +22,14 @@ Introduction
         The Munkres module provides an implementation of the Munkres algorithm
         (also called the Hungarian algorithm or the Kuhn-Munkres algorithm),
         useful for solving the Assignment Problem.
+
+%package license
+Summary: license components for the munkres package.
+Group: Default
+
+%description license
+license components for the munkres package.
+
 
 %package python
 Summary: python components for the munkres package.
@@ -50,21 +59,23 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1600192561
+export SOURCE_DATE_EPOCH=1635754594
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/munkres
+cp %{_builddir}/munkres-1.1.4/LICENSE.md %{buildroot}/usr/share/package-licenses/munkres/4d875f3481bf2e7949fc4d79290552a3fff4818b
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -72,6 +83,10 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/munkres/4d875f3481bf2e7949fc4d79290552a3fff4818b
 
 %files python
 %defattr(-,root,root,-)
